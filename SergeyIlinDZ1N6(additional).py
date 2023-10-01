@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 def ws(x, a, b, n):
     r = 0
-    for k in range(n+1):
-        r += b**k*np.cos(np.pi*x*a**k)
+    for z in range(n+1):
+        r += b**z*np.cos(np.pi*x*a**z)
     return r
 
 a = 3
