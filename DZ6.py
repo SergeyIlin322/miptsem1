@@ -22,7 +22,7 @@ class SequenceError(Exception):
 
 class Sequence(object):
     seq_type = None
-    types = set(['DNA', 'RNA', 'Protein']) # all possible sequence types
+    types = set(['DNA', 'RNA', 'Protein'])
 
     #######################################################################
     # TODO:                                                               #
@@ -297,15 +297,12 @@ class DNA(Sequence):
             codon = trans_dna[i:i+3]
             codons.append(rna_codon_table[codon])
     
-            if codon in ["UAA", "UAG", "UGA"]:
+            if codon in ["UAG", "UAA", "UGA"]:
                 break
 
         if "Stop" in codons:
            codons.remove("Stop")
-
-
         index += 3
-
         return (codons)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -343,10 +340,10 @@ class RNA(Sequence):
         #######################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         count_A : int = self.seq.count('A')
-        count_U : int = self.seq.count('U')
-        count_G : int = self.seq.count('G')
         count_C : int = self.seq.count('C')
-        return{'A': count_A, 'U': count_U, 'G': count_G, 'C': count_C}
+        count_G : int = self.seq.count('G')
+        count_U : int = self.seq.count('U')
+        return{'A': count_A, 'C': count_C, 'G': count_G, 'U': count_U}
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     
     def transcribe(self) -> str:
@@ -411,7 +408,7 @@ class Protein(Sequence):
     # amino acids: _pos_acids and _neg_acids                              #
     #######################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    _pos_acids = set(['K', 'R', 'H'])
+    _pos_acids = set(['R', 'K', 'H'])
     _neg_acids = set(['D', 'E'])
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -431,29 +428,29 @@ class Protein(Sequence):
         # looping over sequenceattribute or using a standard string method.   #
         #######################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-        count_A : int = self.seq.count('A')
-        count_R : int = self.seq.count('R')
-        count_N : int = self.seq.count('N')
-        count_D : int = self.seq.count('D')
-        count_C : int = self.seq.count('C')
-        count_Q : int = self.seq.count('Q')
-        count_E : int = self.seq.count('E')
         count_G : int = self.seq.count('G')
-        count_H : int = self.seq.count('H')
-        count_I : int = self.seq.count('I')
+        count_A : int = self.seq.count('A')
+        count_V : int = self.seq.count('V')
         count_L : int = self.seq.count('L')
-        count_K : int = self.seq.count('K')
-        count_M : int = self.seq.count('M')
-        count_F : int = self.seq.count('F')
-        count_P : int = self.seq.count('P')
+        count_I : int = self.seq.count('I')
         count_S : int = self.seq.count('S')
         count_T : int = self.seq.count('T')
-        count_V : int = self.seq.count('V')
+        count_C : int = self.seq.count('C')
+        count_M : int = self.seq.count('M')
+        count_D : int = self.seq.count('D')
+        count_N : int = self.seq.count('N')
+        count_E : int = self.seq.count('E')
+        count_Q : int = self.seq.count('Q')
+        count_R : int = self.seq.count('R')
+        count_K : int = self.seq.count('K')
+        count_H : int = self.seq.count('H')
+        count_F : int = self.seq.count('F')
         count_Y : int = self.seq.count('Y')
         count_W : int = self.seq.count('W')
-        return{'A': count_A, 'R': count_R, 'N': count_N, 'D': count_D, 'C': count_C, 'Q': count_Q, 'G': count_G, 'E': count_E, 
-        'H': count_H, 'I': count_I, 'L': count_L, 'K': count_K, 'M': count_M, 'F': count_F, 'P': count_P, 'S': count_S, 
-        'T': count_T, 'W': count_W, 'Y': count_Y, 'V': count_V}
+        count_P : int = self.seq.count('P')
+        return{'G': count_G, 'A': count_A, 'V': count_V, 'L': count_L, 'I': count_I, 'S': count_S, 'T': count_T, 'C': count_C, 
+        'M': count_M, 'D': count_D, 'N': count_N, 'E': count_E, 'Q': count_Q, 'R': count_R, 'K': count_K, 'H': count_H, 
+        'F': count_F, 'Y': count_Y, 'W': count_W, 'P': count_P}
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     
     def to_protein(self) -> str:
@@ -487,11 +484,10 @@ class Protein(Sequence):
         #######################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         charge = 0
-
         for i in self.seq:
-            if i in self._pos_acids:
-               charge += 1
-            elif i in self._neg_acids:
-                 charge -= 1
+            if i in  self._neg_acids:
+                charge -= 1
+            elif i in self._pos_acids:
+                charge += 1
         return (charge)
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
